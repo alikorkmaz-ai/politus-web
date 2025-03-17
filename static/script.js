@@ -3,7 +3,7 @@ document.getElementById('apply-filters').addEventListener('click', () => {
     const formData = new FormData(formElement); // Doğru formdan veri oku
     const filters = {};
 
-    // Filtreleri oku ve JSON formatına dönüştür
+    // Filtreleri JSON formatına dönüştür
     formData.forEach((value, key) => {
         if (value && value !== 'all') {
             filters[key] = value;
@@ -11,14 +11,18 @@ document.getElementById('apply-filters').addEventListener('click', () => {
     });
 
     // Yıl aralığı filtrelerini al
-    const startYear = parseInt(document.getElementById('publication-start-year').value);
-    const endYear = parseInt(document.getElementById('publication-end-year').value);
+    const startYear = document.getElementById('publication-start-year').value;
+    const endYear = document.getElementById('publication-end-year').value;
 
     // Eğer yıl aralığı seçildiyse, filtrelere ekle
-    if (!isNaN(startYear) && !isNaN(endYear)) {
-        filters.startYear = startYear;
-        filters.endYear = endYear;
+    if (startYear) {
+        filters.startYear = parseInt(startYear);
     }
+    if (endYear) {
+        filters.endYear = parseInt(endYear);
+    }
+
+    console.log("Gönderilen Filtreler:", filters); // Konsolda filtreleri kontrol edin
 
     fetch('/filter', {
         method: 'POST',
@@ -32,6 +36,7 @@ document.getElementById('apply-filters').addEventListener('click', () => {
         return response.json();
     })
     .then(data => {
+        console.log("Gelen Sonuçlar:", data); // Konsolda sonuçları kontrol edin
         const materialsDiv = document.getElementById('materials');
         materialsDiv.innerHTML = ''; // Önceki içerikleri temizle
 
@@ -40,32 +45,34 @@ document.getElementById('apply-filters').addEventListener('click', () => {
             return;
         }
 
+        // Filtrelenen her materyali listeye ekle
         data.forEach(item => {
             let content = `
                 <div class="col-md-4">
-                    <div class="card shadow-sm">
-                        <div class="card-body">
+                    <div class="card shadow-sm">`;
+
+            // **Resim Varsa Ekle**
+            if (item.image) {
+                content += `<img src="${item.image}" class="card-img-top" alt="Material Image">`;
+            }
+
+            content += `<div class="card-body">
                             <h5 class="card-title">${item.title || 'No Title Available'}</h5>
                             <p class="card-text">${item.description || 'No Description Available'}</p>`;
 
-            // MongoDB'den gelen content_format'a göre buton ekleme
-            if (item.link) {
-                if (item.content_format === 'PDF Report') {
-                    content += `<a href="${item.link}" target="_blank" class="btn btn-sm btn-primary">Open PDF</a>`;
-                } else if (item.content_format === 'Video') {
-                    content += `<a href="${item.link}" target="_blank" class="btn btn-sm btn-success">Watch Video</a>`;
-                } else if (item.content_format === 'Web based article') {
-                    content += `<a href="${item.link}" target="_blank" class="btn btn-sm btn-info">Read Article</a>`;
-                } else if (item.content_format === 'Interactive Module') {
-                    content += `<a href="${item.link}" target="_blank" class="btn btn-sm btn-warning">Start Module</a>`;
-                } else {
-                    content += `<a href="${item.link}" target="_blank" class="btn btn-sm btn-secondary">Open Document</a>`;
-                }
+            // **Eğer `_id` varsa "Details" butonunu ekleyelim**
+            if (item._id) {
+                content += `<a href="/document/${item._id}" class="btn btn-sm btn-info">Details</a>`;
             } else {
-                content += `<p class="text-muted">No link available</p>`;
+                content += `<p class="text-muted">No details available</p>`;
             }
 
-            // Yıl filtresi kontrolü
+            // **Makale Linki Varsa "Original Source" Butonu Ekleyelim**
+            if (item.link) {
+                content += `<a href="${item.link}" target="_blank" class="btn btn-sm btn-secondary">Original Source</a>`;
+            }
+
+            // **Yıl Filtreleme Kontrolü**
             if (startYear && endYear) {
                 if (item.publication_year >= startYear && item.publication_year <= endYear) {
                     content += `<p class="card-text">Published in: ${item.publication_year}</p>`;
@@ -82,6 +89,8 @@ document.getElementById('apply-filters').addEventListener('click', () => {
     })
     .catch(error => console.error('Error:', error));
 });
+
+
 
 // **Reset Filters Butonu**
 document.getElementById('reset-filters').addEventListener('click', () => {

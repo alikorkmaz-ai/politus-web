@@ -6,6 +6,7 @@ from dotenv import load_dotenv
 from rag.vectorstore import load_vectorstore  # RAG vektör veritabanı
 from rag.query import answer_query  # RAG sorgu işleyicisi
 from langchain_huggingface import HuggingFaceEmbeddings
+from bson.objectid import ObjectId  # MongoDB'deki ObjectId'yi string'e çevirmek için
 
 load_dotenv()
 
@@ -106,11 +107,14 @@ def filter_data():
 
     print("### OLUŞTURULAN MongoDB SORGU ###", query)  # **MongoDB'ye giden sorguyu gösterelim**
 
-    results = list(collection.find(query, {'_id': 0}))
+    # **MongoDB'den `_id` alanını string formatında döndürme**
+    results = collection.find(query, {'_id': 1, 'title': 1, 'description': 1, 'link': 1, 'content_format': 1})
+    response = []
+    for doc in results:
+        doc['_id'] = str(doc['_id'])  # `_id` alanını string'e çeviriyoruz
+        response.append(doc)
 
-    print(f"TOPLAM BULUNAN DOKÜMAN: {len(results)}")  # **Kaç veri döndüğünü kontrol et**
-
-    return jsonify(results)
+    return jsonify(response)
 
 
 @app.route('/search', methods=['POST'])
@@ -209,10 +213,13 @@ def download_file(filename):
     return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
 
 
-# **Yeni Route: Dinamik Makale Sayfası**
+# **Yeni Route: Makale Detay Sayfası**
 @app.route('/document/<doc_id>')
 def document_detail(doc_id):
-    document = collection.find_one({"_id": doc_id}, {"_id": 0, "title": 1, "description": 1, "file": 1, "image": 1})
+    try:
+        document = collection.find_one({"_id": ObjectId(doc_id)}, {"_id": 0, "title": 1, "description": 1, "link": 1, "content_format": 1})
+    except:
+        return "Invalid document ID", 400
 
     if not document:
         return "Document not found", 404
