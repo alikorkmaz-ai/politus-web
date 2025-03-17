@@ -209,6 +209,17 @@ def download_file(filename):
     return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
 
 
+# **Yeni Route: Dinamik Makale Sayfası**
+@app.route('/document/<doc_id>')
+def document_detail(doc_id):
+    document = collection.find_one({"_id": doc_id}, {"_id": 0, "title": 1, "description": 1, "file": 1, "image": 1})
+
+    if not document:
+        return "Document not found", 404
+
+    return render_template('document.html', document=document)
+
+
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 8080))  # Render provides a dynamic port
     app.run(host="0.0.0.0", port=port, debug=False)
