@@ -67,11 +67,6 @@ document.getElementById('apply-filters').addEventListener('click', () => {
                 content += `<p class="text-muted">No details available</p>`;
             }
 
-            // **Makale Linki Varsa "Original Source" Butonu Ekleyelim**
-            if (item.link) {
-                content += `<a href="${item.link}" target="_blank" class="btn btn-sm btn-secondary">Original Source</a>`;
-            }
-
             // **Yıl Filtreleme Kontrolü**
             if (startYear && endYear) {
                 if (item.publication_year >= startYear && item.publication_year <= endYear) {
