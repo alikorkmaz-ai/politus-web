@@ -48,7 +48,7 @@ document.getElementById('apply-filters').addEventListener('click', () => {
         // Filtrelenen her materyali listeye ekle
         data.forEach(item => {
             let content = `
-                <div class="col-md-4">
+                <div class="col-lg-6">
                     <div class="card shadow-sm">`;
 
             // **Resim Varsa Ekle**
@@ -56,20 +56,33 @@ document.getElementById('apply-filters').addEventListener('click', () => {
                 content += `<img src="${item.image}" class="card-img-top" alt="Material Image">`;
             }
 
-            content += `<div class="card-body">
-                            <h5 class="card-title">${item.title || 'No Title Available'}</h5>
-                            <p class="card-text">${item.description || 'No Description Available'}</p>`;
+            content += `<div class="card-body">`;
+
+            // MongoDB'den gelen content_format'a göre label ekleme
+            if (item.link) {
+              if (item.content_format === 'PDF Report') {
+                content += `<span class="label pdf">PDF</span>`;
+              } else if (item.content_format === 'Video') {
+                content += `<span class="label video">Video</span>`;
+              } else if (item.content_format === 'Web based article') {
+                content += `<span class="label article">Article</span>`;
+              } else if (item.content_format === 'Interactive Module') {
+                content += `<span class="label module">Module</span>`;
+              } else {
+                content += `<span class="label document">Document</span>`;
+              }
+            } else {
+              content += `<spann class="label muted">No Link Available</spann>`;
+            }
+
+            content += `<div class="card-title-container"><h5 class="card-title" title="${item.title || 'No Title Available'}">${item.title || 'No Title Available'}</h5></div>
+                        <div class="card-text-container"><p class="card-text" title="${item.description || 'No Description Available'}">${item.description || 'No Description Available'}</p></div>`;
 
             // **Eğer `_id` varsa "Details" butonunu ekleyelim**
             if (item._id) {
-                content += `<a href="/document/${item._id}" class="btn btn-sm btn-info">Details</a>`;
+                content += `<a href="/document/${item._id}" class="btn btn-sm bg-purple shadow-sm">Details</a>`;
             } else {
                 content += `<p class="text-muted">No details available</p>`;
-            }
-
-            // **Makale Linki Varsa "Original Source" Butonu Ekleyelim**
-            if (item.link) {
-                content += `<a href="${item.link}" target="_blank" class="btn btn-sm btn-secondary">Original Source</a>`;
             }
 
             // **Yıl Filtreleme Kontrolü**
@@ -80,7 +93,7 @@ document.getElementById('apply-filters').addEventListener('click', () => {
                     content += `<p class="card-text">Year not within selected range</p>`;
                 }
             } else {
-                content += `<p class="card-text">No year filter applied</p>`;  // Yıl filtresi uygulanmadıysa
+                content += `<p class="card-text mt-2">No year filter applied</p>`;  // Yıl filtresi uygulanmadıysa
             }
 
             content += `</div></div></div>`;
@@ -132,14 +145,39 @@ document.getElementById('search-form').addEventListener('submit', (event) => {
 
         data.forEach(item => {
             let content = `
-                <div class="col-md-4">
-                    <div class="card shadow-sm">
-                        <div class="card-body">
-                            <h5 class="card-title">${item.title || 'No Title Available'}</h5>
-                            <p class="card-text">${item.description || 'No Description Available'}</p>`;
+                <div class="col-lg-6">
+                    <div class="card shadow-sm">`;
 
+            // **Resim Varsa Ekle**
+            if (item.image) {
+              content += `<img src="${item.image}" class="card-img-top" alt="Material Image">`;
+            }
+
+            content += `<div class="card-body">`;
+
+            // MongoDB'den gelen content_format'a göre label ekleme
             if (item.link) {
-                content += `<a href="${item.link}" target="_blank" class="btn btn-sm btn-primary">Open Document</a>`;
+              if (item.content_format === 'PDF Report') {
+                content += `<span class="label pdf">PDF</span>`;
+              } else if (item.content_format === 'Video') {
+                content += `<span class="label video">Video</span>`;
+              } else if (item.content_format === 'Web based article') {
+                content += `<span class="label article">Article</span>`;
+              } else if (item.content_format === 'Interactive Module') {
+                content += `<span class="label module">Module</span>`;
+              } else {
+                content += `<span class="label document">Document</span>`;
+              }
+            } else {
+              content += `<spann class="label muted">No Link Available</spann>`;
+            }
+
+            content += `<div class="card-title-container"><h5 class="card-title" title="${item.title || 'No Title Available'}">${item.title || 'No Title Available'}</h5></div>
+                        <div class="card-text-container"><p class="card-text" title="${item.description || 'No Description Available'}">${item.description || 'No Description Available'}</p></div>`;
+
+            // **Makale Linki Varsa "Original Source" Butonu Ekleyelim**
+            if (item.link) {
+                content += `<a href="${item.link}" target="_blank" class="btn btn-sm bg-purple shadow-sm">Original Source</a>`;
             }
 
             content += `</div></div></div>`;
