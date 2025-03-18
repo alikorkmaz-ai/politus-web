@@ -5,6 +5,27 @@ body {
     background-color: white;
 }
 
+/* Main Two Button Colors */
+.btn.bg-purple {
+    background-color: #6f42c1;
+    color: white;
+}
+
+.btn.bg-purple:hover {
+    background-color: #5a379d;
+    color: white;
+}
+
+.btn.bg-green {
+    background-color: #198754;
+    color: white;
+}
+
+.btn.bg-green:hover {
+    background-color: #146c43;
+    color: white;
+}
+
 /* Sidebar Styles */
 .sidebar {
     background-color: #f8f9fa;
@@ -16,7 +37,6 @@ body {
     top: 0;
     overflow-y: auto; /* Dikey kaydırmayı etkinleştir */
 }
-
 
 .sidebar h5 {
     font-size: 18px;
@@ -50,7 +70,7 @@ body {
 }
 
 .sidebar .btn {
-    background-color: #007bff;
+    background-color: #6f42c1;
     color: white;
     border: none;
     padding: 10px;
@@ -62,7 +82,8 @@ body {
 }
 
 .sidebar .btn:hover {
-    background-color: #0056b3;
+    background-color: #5a379d;
+    color: white;
 }
 
 /* Header Groups */
@@ -126,9 +147,8 @@ main h1 {
     color: #333;
 }
 
-
 .accordion-button {
-  background-color: #007bff;
+  background-color: #6f42c1;
   color: white;
   font-weight: bold;
   border: none;
@@ -136,14 +156,22 @@ main h1 {
 }
 
 .accordion-button:hover {
-  background-color: #0056b3;
+  background-color: #5a379d;
   color: white;
 }
 
+.accordion-button.collapsed:hover::after {
+  background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23ffffff'><path fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/></svg>") !important;
+}
+
 .accordion-button:not(.collapsed) {
-  color: white;
-  background-color: #0056b3;
-  box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.125);
+  background-color: #ece7fe !important;
+  color: #5a3fcf !important;
+}
+
+.accordion-button:focus {
+  border-color: #b686fe !important;
+  box-shadow: 0 0 0 0.25rem rgba(90, 63, 207, 0.25) !important;
 }
 
 .accordion-body {
@@ -161,8 +189,9 @@ main h1 {
 .date-range span {
   margin-left: auto; /* Ortalayabilirsiniz veya hizalayabilirsiniz */
 }
+
 #materials .card {
-    height: 220px; /* Kartın maksimum yüksekliğini belirle */
+    height: 300px; /* Kartın sabit yüksekliği */
     overflow: hidden; /* Taşan içeriği gizle */
     display: flex;
     flex-direction: column;
@@ -176,21 +205,69 @@ main h1 {
 #materials .card-title {
     font-size: 18px;
     font-weight: bold;
-    max-height: 50px; /* 2 satırdan fazla olmasın */
     overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap; /* Tek satırda göster */
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* En fazla 2 satır göstersin */
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    white-space: normal;
+}
+
+/* card-text'e sabit bir yükseklik ver */
+#materials .card-text-container {
+  height: 100px;
+}
+/* card-title'e sabit bir yükseklik ver */
+#materials .card-title-container {
+  height: 50px;
 }
 
 /* Açıklama için stil (En fazla 3 satır göstersin, fazlası "..." ile kırılsın) */
 #materials .card-text {
     font-size: 14px;
-    max-height: 70px; /* Açıklamalar için maksimum yükseklik belirle */
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
-    -webkit-line-clamp: 3; /* En fazla 3 satır göstersin */
+    -webkit-line-clamp: 4; /* En fazla 4 satır göstersin */
+    line-clamp: 4;
     -webkit-box-orient: vertical;
+}
+
+#materials .label {
+    display: inline-block;
+    font-weight: bold;
+    font-size: 12px;
+    padding: 6px 8px;
+    border-radius: 5px;
+    font-family: Arial, sans-serif;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+}
+
+/* Label Colors */
+#materials .pdf {
+    background-color: rgba(173, 216, 230, 0.5);
+    color: #4682b4;
+}
+#materials .video {
+    background-color: rgba(255, 223, 186, 0.5);
+    color: #d1942d;
+}
+#materials .article {
+    background-color: rgba(144, 238, 144, 0.5);
+    color: #4caf50;
+}
+#materials .module {
+    background-color: #ece7fe;
+    color: #5a3fcf;
+}
+#materials .document {
+    background-color: rgba(255, 235, 190, 0.5);
+    color: #c09050;
+}
+#materials .muted {
+    background-color: rgba(240, 240, 240, 0.5);
+    color: #a0a0a0;
 }
 
 body {
