@@ -301,7 +301,7 @@ body {
 .user-message {
     text-align: right;
     color: white;
-    background: #007bff;
+    background: #198754;
     padding: 10px;
     border-radius: 10px;
     margin-bottom: 5px;
@@ -358,6 +358,21 @@ body {
 .search-box .form-control:focus,
 .search-box .form-control:active {
   box-shadow: none;
+}
+
+.shadow-green:focus {
+  border-color: #198754 !important;
+  box-shadow: inset 0 0 0 1px rgba(25, 135, 84, 0.25) !important;
+}
+
+.filter-shadow-purple:focus {
+  border-color: #b686fe !important;
+  box-shadow: 0 0 0 0.25rem rgba(90, 63, 207, 0.25) !important;
+}
+
+.form-select:focus {
+  border-color: #b686fe !important;
+  box-shadow: 0 0 0 0.25rem rgba(90, 63, 207, 0.25) !important;
 }
 
 .search-box .search-btn {
