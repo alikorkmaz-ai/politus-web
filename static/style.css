@@ -70,7 +70,7 @@ body {
 }
 
 .sidebar .btn {
-    background-color: #6f42c1;
+    background-color: #853078;
     color: white;
     border: none;
     padding: 10px;
@@ -385,4 +385,43 @@ body {
 .search-box .search-btn:hover {
   color: #fff;
   background-color: #198754;
+}
+
+.navbar.custom-bg {
+    position: relative;
+    z-index: 1;
+    background-color: transparent !important;
+    min-height: 100px; /* 🔥 yüksekliği büyüttük */
+    align-items: center; /* içerik dikey ortalansın */
+    display: flex;
+}
+
+.navbar.custom-bg::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%; /* 💡 Navbar ne kadar yüksekse o kadar */
+    background-image: url("/static/navbar-bg.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0.9;
+    filter: none;
+    z-index: -1;
+    pointer-events: none;
+}
+
+#navbar-link-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 20%;
+    height: 100%;
+    z-index: 5;
+    display: block;
+    background: transparent;
+    text-decoration: none;
+    cursor: pointer;
 }

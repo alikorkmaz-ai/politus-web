@@ -42,6 +42,10 @@ list_fields = [
 ]
 
 
+@app.route("/deneme")
+def deneme():
+    return render_template("deneme.html")  # templates klasöründe olmalı
+
 @app.route('/')
 def index():
     return render_template('index.html')

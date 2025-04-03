@@ -24,15 +24,13 @@
 <body>
     <!-- Navbar -->
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-4">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-4 custom-bg">
+        <a href="{{ url_for('index') }}" id="navbar-link-layer" aria-label="Ana Sayfa"></a>
         <div class="container-fluid">
-            <a class="navbar-brand" href="{{ url_for('index') }}">
-                <img src="{{ url_for('static', filename='logo.jpg') }}" alt="Education Platform Logo" height="84">
-            </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
-
+            
             <div class="search-box-container d-flex me-2 justify-content-end">
                 <div class="search-box me-2">
                     <form class="d-flex ms-2" id="search-form">
@@ -55,6 +53,7 @@
             </div>
         </div>
     </nav>
+    
 
 
 
