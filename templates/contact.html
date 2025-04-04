@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Contact – SBRINI Project</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome (optional) -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Özel stil dosyan varsa -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark px-4 custom-bg">
+    <a href="{{ url_for('index') }}" id="navbar-link-layer" aria-label="Ana Sayfa"></a>
+    <div class="container-fluid">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="search-box-container d-flex me-2 justify-content-end">
+            <div class="search-box me-2">
+                <form class="d-flex ms-2" id="search-form">
+                    <input class="form-control me-2" type="search" id="search-input" placeholder="Search documents..." aria-label="Search">
+                    <button class="btn btn-link search-btn" type="submit">
+                        <i class="fas fa-search" style="font-size: 0.9em;"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link active" href="{{ url_for('contact') }}">Contact</a></li>
+            </ul>
+            <a href="{{ url_for('chatbot') }}" class="btn bg-purple ms-3">Chatbot</a>
+            <a href="{{ url_for('text_moderation') }}" class="btn bg-green ms-3 text-nowrap">Correction Bot</a>
+        </div>
+    </div>
+</nav>
+
+<!-- Content -->
+<div class="container mt-5">
+
+    <h2 class="mb-4">Project Summary</h2>
+    <p class="lead">
+        <strong>Ending Online Violence Against Women and Girls</strong> is a comprehensive initiative aiming to tackle the increasing problem of digital violence faced by women and girls in online environments. The initiative recognizes that online gender-based violence is a growing global issue that undermines women’s freedom of expression, safety, and participation in digital public life.
+    </p>
+    <p>
+        The project’s primary goals are to detect, monitor, and analyze harmful content directed at women and girls across digital platforms. It leverages advanced <strong>natural language processing (NLP)</strong> tools to automatically identify hate speech, threats, harassment, and misogynistic language, and provides an interactive, web-based platform that enables researchers, policymakers, and civil society actors to explore patterns of online violence in real time.
+    </p>
+    <p>
+        A key feature of the platform is its integration of two AI-driven tools: a <strong>Retrieval-Augmented Generation (RAG) Bot</strong> that provides evidence-based responses to user queries by retrieving relevant academic and policy documents, and a <strong>Correction Bot</strong> that detects and rewrites harmful or offensive language to promote respectful discourse.
+    </p>
+    <p>
+        These components are built on top of a multilingual dataset, continuously updated and evaluated through <strong>human-in-the-loop mechanisms</strong> to ensure fairness and contextual sensitivity. The project also collaborates with NGOs and academic institutions to reflect local legal frameworks and lived experiences.
+    </p>
+    <p>
+        By combining computational techniques with feminist research perspectives, the platform contributes to a safer and more inclusive digital environment for women and girls. It also supports <strong>evidence-based policymaking</strong>, advocacy, and public education through accessible tools and educational resources.
+    </p>
+
+
+
+    <hr class="my-5">
+
+    <!-- Contact Info -->
+    <h3 class="mb-3">Contact Us</h3>
+    <p>This project is owned and maintained by <a href="https://politusanalytics.com" target="_blank">Politus Analytics</a>.</p>
+    <ul class="list-unstyled">
+        <li><strong>Email:</strong> <a href="mailto:info@politusanalytics.com">info@politusanalytics.com</a></li>
+        <li><strong>Phone:</strong> +90 212 123 4567</li>
+        <li><strong>Address:</strong> Koç University, Istanbul, Turkey</li>
+    </ul>
+
+</div>
+
+<!-- Footer -->
+<footer class="bg-dark text-light text-center py-3 mt-5">
+    <p class="mb-1">This is a <a href="https://politusanalytics.com" class="text-light text-decoration-underline" target="_blank">Politus Analytics</a> project.</p>
+    <p class="mb-0">Developer: <a href="mailto:alikorkmaz.fizik@gmail.com" class="text-light text-decoration-underline">Ali Korkmaz</a></p>
+</footer>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

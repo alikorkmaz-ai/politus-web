@@ -42,9 +42,9 @@ list_fields = [
 ]
 
 
-@app.route("/deneme")
-def deneme():
-    return render_template("deneme.html")  # templates klasöründe olmalı
+@app.route('/contact')
+def contact():
+    return render_template('contact.html')
 
 @app.route('/')
 def index():
